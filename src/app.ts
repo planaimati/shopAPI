@@ -3,26 +3,37 @@ import { connectDB } from "./db/connect";
 import { config } from "dotenv";
 import { router } from "./routes/users";
 import bodyParser from "body-parser";
-import sesseion from 'express-session'
-import cors from 'cors';
-import cookieParser from 'cookie-parser'
-
+import sesseion from "express-session";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import passport from "passport";
+import passportInitialize from "./passportConfig";
 
 const app = express();
 config();
 app.use(bodyParser.json());
-app.use("/api/v1", router);
-app.use(cors({
-  origin: "http://localhost:3000/",
-  credentials: true
-}))
-app.use(sesseion({
-  secret: "secretcode",
-  resave: true,
-  saveUninitialized: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "http://localhost:3000/",
+    credentials: true,
+  })
+);
 
-app.use(cookieParser("secretcode"))
+app.use(
+  sesseion({
+    secret: "secretcode",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(cookieParser("secretcode"));
+app.use(passport.initialize());
+app.use(passport.session());
+passportInitialize(passport);
+
+app.use("/api/v1", router);
 
 const port = 8080;
 const start = async () => {

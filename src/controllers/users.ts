@@ -1,6 +1,7 @@
 import { Application, Request, Response, NextFunction } from "express";
 import { User } from "../models/User";
 import bcrypt from "bcrypt";
+import passport from "passport";
 
 export const registerUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
@@ -40,11 +41,34 @@ export const getAllUsers = async (req: Request, res: Response) => {
 };
 
 export const getUser = async (req: Request, res: Response) => {
-  try {
-    const user = await User.findOne({ email: req.body.email });
+  // try {
+  //   const user = await User.findOne({ email: req.body.email });
 
-    res.status(200).json({ user });
-  } catch (error) {
-    res.status(500).json({ msg: error });
-  }
+  //   res.status(200).json({ user });
+  // } catch (error) {
+  //   res.status(500).json({ msg: error });
+  // }
+
+  res.status(200).json(req.user);
+};
+
+export const logIn = (req: Request, res: Response, next: NextFunction) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.status(500).json({ msg: "No user exist" });
+    else {
+      req.logIn(user, (err) => {
+        console.log("else");
+
+        if (err) throw err;
+        res.status(200).json(req.user);
+        console.log(req.user);
+      });
+    }
+  })(req, res, next);
+};
+
+export const logOut = (req: Request, res: Response, next: NextFunction) => {
+  req.logout();
+  res.status(200).json({ msg: "loggedOut" });
 };
