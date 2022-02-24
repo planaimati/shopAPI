@@ -3,6 +3,14 @@ import bcrypt from "bcrypt";
 const localStrategy = require("passport-local").Strategy;
 import { PassportStatic } from "passport";
 
+declare global {
+  namespace Express {
+    interface User {
+      id: string;
+    }
+  }
+}
+
 const passportInitilize = (passport: PassportStatic) => {
   passport.use(
     new localStrategy(
