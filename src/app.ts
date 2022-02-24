@@ -8,6 +8,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import passportInitialize from "./passportConfig";
+import aws from "aws-sdk";
 
 const app = express();
 config();
@@ -44,6 +45,7 @@ const start = async () => {
     });
   } catch (error) {
     console.log(error);
+    console.log("xd");
   }
 };
 
