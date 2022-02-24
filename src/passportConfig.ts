@@ -25,7 +25,7 @@ const passportInitilize = (passport: PassportStatic) => {
   );
 
   passport.serializeUser((user, cb) => {
-    cb(null, user.id);
+    cb(null, user.id as string);
   });
 
   passport.deserializeUser((id, cb) => {
