@@ -39,7 +39,9 @@ app.use("/api/v1", router);
 const port = 8080;
 const start = async () => {
   try {
-    await connectDB(process.env.MONGO_URI!);
+    await connectDB(
+      "mongodb+srv://Mati:1234@cluster0.t1pfj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+    );
     app.listen(port, () => {
       console.log(`server is working on port ${port}...`);
     });
