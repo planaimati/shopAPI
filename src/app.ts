@@ -37,13 +37,13 @@ passportInitialize(passport);
 app.use("/api/v1", router);
 
 const port = 8080;
+const url =
+  "mongodb+srv://Mati:1234@cluster0.t1pfj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const start = async () => {
   try {
-    await connectDB(
-      "mongodb+srv://Mati:1234@cluster0.t1pfj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-    );
-    app.listen(port, () => {
-      console.log(`server is working on port ${port}...`);
+    await connectDB(url);
+    app.listen(process.env.PORT || port, () => {
+      console.log(`server is working...`);
     });
   } catch (error) {
     console.log(error);
