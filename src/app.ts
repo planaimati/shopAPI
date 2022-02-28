@@ -32,7 +32,7 @@ passportInitialize(passport);
 app.use("/api/v1", router);
 
 app.get("/", (req, res) => {
-  res.send("Hello from ballerbay API");
+  res.send("Hello from shop API");
 });
 
 const port = 8080;
