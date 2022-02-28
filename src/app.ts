@@ -14,12 +14,7 @@ const app = express();
 config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(
   sesseion({
@@ -35,6 +30,10 @@ app.use(passport.session());
 passportInitialize(passport);
 
 app.use("/api/v1", router);
+
+app.get("/", (req, res) => {
+  res.send("Hello from ballerbay API");
+});
 
 const port = 8080;
 const url =
