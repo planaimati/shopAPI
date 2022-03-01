@@ -36,8 +36,6 @@ app.get("/", (req, res) => {
 
 const port = 8000;
 const start = async () => {
-  console.log(process.env.MONGO_URI);
-
   try {
     await connectDB(process.env.MONGO_URI as string);
     app.listen(process.env.PORT || port, () => {
