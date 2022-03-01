@@ -8,7 +8,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import passportInitialize from "./passportConfig";
-import aws from "aws-sdk";
 
 const app = express();
 config();
@@ -35,12 +34,12 @@ app.get("/", (req, res) => {
   res.send("Hello from shop API");
 });
 
-const port = 8080;
-const url =
-  "mongodb+srv://Mati:1234@cluster0.t1pfj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const port = 8000;
 const start = async () => {
+  console.log(process.env.MONGO_URI);
+
   try {
-    await connectDB(url);
+    await connectDB(process.env.MONGO_URI as string);
     app.listen(process.env.PORT || port, () => {
       console.log(`server is working...`);
     });
