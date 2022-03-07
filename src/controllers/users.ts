@@ -23,7 +23,7 @@ export const registerUser = async (req: Request, res: Response) => {
     } else {
       return res
         .status(404)
-        .json({ msg: `Email ${req.body.email} jest zajęty` });
+        .json({ msg: `Login ${req.body.email} jest już zajęty` });
     }
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -55,14 +55,12 @@ export const getUser = async (req: Request, res: Response) => {
 export const logIn = (req: Request, res: Response, next: NextFunction) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) throw err;
-    if (!user) res.status(500).json({ msg: "No user exist" });
+    if (!user)
+      res.status(403).json({ msg: "Podany login lub hasło są nieprawidłowe" });
     else {
       req.logIn(user, (err) => {
-        console.log("else");
-
         if (err) throw err;
         res.status(200).json(req.user);
-        console.log(req.user);
       });
     }
   })(req, res, next);
@@ -70,5 +68,5 @@ export const logIn = (req: Request, res: Response, next: NextFunction) => {
 
 export const logOut = (req: Request, res: Response, next: NextFunction) => {
   req.logout();
-  res.status(200).json({ msg: "loggedOut" });
+  res.status(200).json({ msg: "pomyslnie wylogowano" });
 };
