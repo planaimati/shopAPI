@@ -16,10 +16,11 @@ export const registerUser = async (req: Request, res: Response) => {
         new User({
           email: email,
           password: hashedPassword,
+          admin: false,
         })
       );
 
-      res.status(200).json({ newUser });
+      res.status(200).json({ admin: newUser.admin, email: newUser.email });
     } else {
       return res
         .status(404)
@@ -47,7 +48,10 @@ export const getUser = async (req: Request, res: Response) => {
   //   res.status(200).json({ user });
   // } catch (error) {
   //   res.status(500).json({ msg: error });
+
   // }
+
+  console.log(req.user);
 
   res.status(200).json(req.user);
 };
@@ -60,7 +64,12 @@ export const logIn = (req: Request, res: Response, next: NextFunction) => {
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.status(200).json(req.user);
+
+        res.status(200).json({
+          id: user.id,
+          email: user.email,
+          admin: user.admin,
+        });
       });
     }
   })(req, res, next);

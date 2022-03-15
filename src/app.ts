@@ -3,7 +3,7 @@ import { connectDB } from "./db/connect";
 import { config } from "dotenv";
 import { router } from "./routes/users";
 import bodyParser from "body-parser";
-import sesseion from "express-session";
+import session from "express-session";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import passport from "passport";
@@ -13,19 +13,21 @@ const app = express();
 config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({
-  
-}));
-
 app.use(
-  sesseion({
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+app.use(cookieParser("secretcode"));
+app.use(
+  session({
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
   })
 );
 
-app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 passportInitialize(passport);

@@ -5,10 +5,15 @@ import {
   getUser,
   logIn,
   logOut,
-  
 } from "../controllers/users";
 
-import {createProduct, getAllProducts} from '../controllers/product'
+import {
+  createProduct,
+  getAllProducts,
+  deleteProduct,
+  getSingleProduct,
+  editProduct
+} from "../controllers/product";
 
 export const router = express.Router();
 
@@ -17,5 +22,9 @@ router.route("/register").post(registerUser);
 router.route("/allusers").get(getAllUsers);
 router.route("/user").get(getUser);
 router.route("/logout").get(logOut);
-router.route("/product").post(createProduct)
-router.route("/products").get(getAllProducts)
+//products
+router.route("/product").post(createProduct);
+router.route("/product").get(getAllProducts);
+router.route("/product/:id").delete(deleteProduct);
+router.route("/product/:id").get(getSingleProduct);
+router.route("/product/:id").patch(editProduct)
