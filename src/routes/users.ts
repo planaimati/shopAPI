@@ -2,7 +2,7 @@ import express from "express";
 import {
   registerUser,
   getAllUsers,
-  getUser,
+  getSingleUser,
   logIn,
   logOut,
 } from "../controllers/users";
@@ -19,8 +19,8 @@ export const router = express.Router();
 
 router.route("/login").post(logIn);
 router.route("/register").post(registerUser);
-router.route("/allusers").get(getAllUsers);
-router.route("/user").get(getUser);
+router.route("/user").get(getAllUsers);
+router.route("/user/:id").get(getSingleUser);
 router.route("/logout").get(logOut);
 //products
 router.route("/product").post(createProduct);

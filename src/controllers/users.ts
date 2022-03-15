@@ -41,19 +41,15 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-export const getUser = async (req: Request, res: Response) => {
+export const getSingleUser = async (req: Request, res: Response) => {
   // try {
   //   const user = await User.findOne({ email: req.body.email });
-
   //   res.status(200).json({ user });
-  // } catch (error) {
+  //  } catch (error) {
   //   res.status(500).json({ msg: error });
-
   // }
-
-  console.log(req.user);
-
-  res.status(200).json(req.user);
+  // console.log(req.user);
+  // res.status(200).json(req.user);
 };
 
 export const logIn = (req: Request, res: Response, next: NextFunction) => {
