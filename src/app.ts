@@ -26,6 +26,7 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
+      path: "/api/v1",
       sameSite: "strict",
     },
   })
@@ -50,7 +51,6 @@ const start = async () => {
     });
   } catch (error) {
     console.log(error);
-    console.log("xd");
   }
 };
 
