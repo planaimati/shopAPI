@@ -25,10 +25,6 @@ app.use(
     secret: "secretcode",
     resave: true,
     saveUninitialized: true,
-    cookie: {
-      sameSite: "none",
-      secure: true,
-    },
   })
 );
 
