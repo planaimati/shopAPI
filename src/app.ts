@@ -26,8 +26,8 @@ app.use(
     resave: true,
     saveUninitialized: true,
     cookie: {
-      path: "/api/v1",
-      sameSite: "strict",
+      sameSite: "none",
+      secure: true,
     },
   })
 );
