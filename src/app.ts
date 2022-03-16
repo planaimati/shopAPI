@@ -10,6 +10,7 @@ import passport from "passport";
 import passportInitialize from "./passportConfig";
 
 const app = express();
+app.set("trust proxy", 1);
 config();
 app.set("trust-proxy", 1);
 app.use(bodyParser.json());
@@ -23,6 +24,11 @@ app.use(
 app.use(cookieParser("secretcode"));
 app.use(
   session({
+    cookie: {
+      sameSite: "none",
+      secure: true,
+      path: "/",
+    },
     secret: "secretcode",
     resave: true,
     saveUninitialized: false,
